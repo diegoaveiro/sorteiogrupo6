@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sorteio de Nomes em Pares</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        gap: 10px;
+      }
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 20px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        h1 {
+          filter: drop-shadow(0px 6px 1px orange);
+        }
+
+        #btn {
+          justify-content: center;
+          background-color: transparent;
+          border: none;
+          cursor: pointer;
+          filter: drop-shadow(0px 1px 0px orange);
+        }
+
+        #btn:hover {
+          transform: scale(1.3);
+        }
+
+     
+        #pares {
+          filter: drop-shadow(0px 6px 1px orange);
+          border-radius: 50px;
+          background: #f7f7f7;
+          opacity: 0.5;
+          font-family: 'Ubuntu', sans-serif;
+          font-size: 30px;
+          border: 1px solid #d2d2d2;
+          border-top-color: #f1f1f1;
+          border-left-color: #e8e8e8;
+          border-right-color: #e8e8e8;
+          font-weight: 500;
+          box-shadow: none;
+          padding: 4px 36px 4px 15px;
+          width: 400px;
+        }
+
+        #labels {
+          display: flex;
+          flex-direction: column;
+          flex-wrap: nowrap;
+          align-content: center;
+          justify-content: center;
+          align-items: center;
+        }
+
+        .results {
+          display: flex;
+        }
+    </style>
+</head>
+<body>
+    <h1>SORTEIO DO GRUPO 6</h1>
+    <div id="labels">
+    <label for="nomes"></label>
+    <div  id="inputs">
+   
+      <button id="btn" onclick="sortearNomes()"><img src="images/sorteio.png" alt="" height="35px" width="35px"></button>
+      <div id="pares"></div>
+    </div>
+    </div>
+    <script>
+        function sortearNomes() {
+            var nomesInput = document.getElementById('nomes');
+            var nomesDigitados = ['alice', 'ana', 'andreia', 'ariadne', 'beatriz', 'bianca', 'carlos', 'cintia', 'dilma', 'elton', 'larissa', 'marcus', 'maria', 'miguel', 'telma', 'thais'];
+
+            var pares = [];
+
+            // Embaralhar os nomes
+            for (var i = nomesDigitados.length - 1; i > 0; i--) {
+                var j = Math.floor(Math.random() * (i + 1));
+                var temp = nomesDigitados[i];
+                nomesDigitados[i] = nomesDigitados[j];
+                nomesDigitados[j] = temp;
+            }
+
+            // Criar pares
+            for (var k = 0; k < nomesDigitados.length; k += 2) {
+                if (k + 1 < nomesDigitados.length) {
+                    pares.push([nomesDigitados[k], nomesDigitados[k + 1]]);
+                } else {
+                    pares.push([nomesDigitados[k]]);
+                }
+            }
+
+            // Exibir pares na página
+            exibirPares(pares);
+        }
+
+        function exibirPares(pares) {
+            var paresDiv = document.getElementById('pares');
+            paresDiv.innerHTML = '';
+
+            pares.forEach(function(par) {
+                var parDiv = document.createElement('div');
+                parDiv.textContent = par.join(' + ');
+                paresDiv.appendChild(parDiv);
+            });
+        }
+    </script>
+</body>
+</html>
